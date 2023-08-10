@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<script>
+	function validate(){
+		let password = document.forms["form"]["pass"].value;
+		if(password.length<8)
+		{
+			document.getElementById("message").innerHTML="password has less than 8 characters";
+			return false;
+		} 
+		else{
+			return true;
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<h1>Login page</h1>
+	<form action="http://localhost:8080/websites/password" method="post" name = "form" onsubmit="return validate();">
+	Enter your name: <input type = "text" name = "name"><br><br>
+	Enter the password: <input type = "password" name = "pass"><br><br>
+	<input type = "submit" name="submit" value = "Submit"><br> 	
+	</form>
+	<p id ="message"></p>
+</body>
+</html>
