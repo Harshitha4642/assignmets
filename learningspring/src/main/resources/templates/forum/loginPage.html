@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insta login</title>
+</head>
+<body>
+	<h2>Login form</h2>
+	<form action="checkLogin" method="get">
+		<input type="text" name="username" placeholder="Enter your username"><br><br>
+		<input type="password" name="password" placeholder="Enter your passowrd"><br><br>
+		<input type="submit" name="submit" value="Login"><br><br>
+	</form>
+	<p th:text = "${message}"></p>
+	
+	<form action="/forum/logout" method="get">
+		<input type="submit" name="logout" value="Logout"><br>
+	</form>
+
+</body>
+</html>
