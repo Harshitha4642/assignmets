@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+        /* Internal CSS for the form */
+        .custom-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .custom-form h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .custom-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .custom-form textarea {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .custom-form input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+<title>New Post Form</title>
+</head>
+<body>
+	
+	<div class="custom-form">
+		<h2>Create a new post</h2>
+	<form method="post" action="#" th:action="@{/forum/post/add}" th:object="${postForm}">
+		<label for="content">Content</label>
+		<textarea id="content" name="content" th:field="*{content}"></textarea><br><br>
+		<input type="hidden" th:field="*{userId}">
+		<input type="submit" value="Create">
+	</form>
+	</div>
+</body>
+</html>

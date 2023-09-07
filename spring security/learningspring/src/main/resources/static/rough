@@ -1,0 +1,203 @@
+@PostMapping("/post/{id}/comment")
+public String postComment(@PathVariable("id") int postId, @RequestParam String commentContent, RedirectAttributes attr, Model model) {
+    // Use 'postId' instead of 'id' in your code to represent the post ID.
+    Comment comment = new Comment();
+    comment.setPostId(postId);
+    comment.setContent(commentContent);
+    commentRepository.save(comment);
+    // You may want to retrieve and set the comments correctly, as shown below.
+    List<Comment> comments = commentRepository.findByPostId(postId);
+    model.addAttribute("comments", comments);
+    return String.format("redirect:/forum/post/%d", postId);
+}
+
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+    List<Comment> findByPostId(int postId);
+}
+
+<form method="post" action="#" th:action="@{/forum/post/{id}/comment(id=${post.id})}">
+
+@GetMapping("/post/{id}")
+public String postDetail(@PathVariable int id, Model model, @AuthenticationPrincipal UserDetails userDetails) throws ResourceNotFoundException {
+    Optional<Post> post = postRepository.findById(id);
+    if (post.isEmpty()) {
+        throw new ResourceNotFoundException("No post with the requested ID");
+    }
+    model.addAttribute("post", post.get());
+
+    // Fetch comments by postId and add them to the model
+    List<Comment> comments = commentRepository.findByPostId(id);
+    model.addAttribute("comments", comments);
+
+    // Add other necessary attributes
+    model.addAttribute("likerName", userDetails.getUsername());
+    int numLikes = likeCRUDRepository.countByLikeIdPost(post.get());
+    model.addAttribute("likeCount", numLikes);
+
+    return "forum/postDetail";
+}
+
+<!-- Display the post content -->
+
+<!-- Display comments -->
+<div>
+    <h2>Comments</h2>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p th:text="${comment.content}"></p>
+        </li>
+    </ul>
+</div>
+
+<!-- Other content -->
+<button style="background-color: blue; color: white; border: none; padding: 10px;">Click me</button>
+<textarea style="width: 300px; height: 150px; padding: 10px; border: 1px solid #ccc; font-family: Arial, sans-serif;"></textarea>
+
+<style>
+        .centered-div {
+            text-align: center;
+        }
+
+        .centered-form {
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+
+<div class="centered-div">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Internal CSS for the register form */
+        .register-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .register-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .register-form input[type="text"],
+        .register-form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .register-form input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-form">
+        <h2>Registration Form</h2>
+        <form action="/register" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+</html>
+
+<h1 style="color: blue; text-align: center; font-size: 24px;">This is a centered blue heading</h1>
+
+<style>
+        /* Internal CSS for the form */
+        .custom-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .custom-form h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .custom-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .custom-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .custom-form input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form class="custom-form">
+        <h2>Contact Us</h2>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+In this example:
+
+    We define an internal CSS style for the form using the .custom-form class.
+    The form is centered within its container using margin: 0 auto; and styled with padding, border, and a background color.
+    The <h2> heading is centered and given a blue color.
+    Labels, text areas, and the submit button are styled with appropriate widths, padding, and border styles.
+    The submit button has a blue background color and white text color for contrast.
+    You can customize these styles further to match your design preferences.
+
+
+comment.setTimestamp(new Date());
+@Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date timestamp;
+
+
+
+
+
+
+
+
+

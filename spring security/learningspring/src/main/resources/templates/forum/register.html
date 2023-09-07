@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+<style>
+	/* Internal CSS for the register form */
+        .register-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .register-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .register-form input[type="text"],
+        .register-form input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .register-form input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+</style>
+</head>
+<body>
+	<div class="register-form">
+    <h1 style="color: blue; text-align: center; font-size: 37px;">Register</h1>
+    <form method="post" action="#" th:action="@{/forum/register}" th:object="${registrationForm}">
+        <p th:text="${message}">Correct username and password</p>
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" th:field="*{username}"><br>
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" th:field="*{password}"><br>
+        <label for="passwordrepeat">Repeat Password</label><br>
+        <input type="password" name="repeatPassword" id="repeatPassword" th:field="*{repeatPassword}"><br>
+        <input type="submit" value="Register">
+    </form>
+    </div>
+</body>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Blog post</title>
+<style>
+        .centered-div {
+            text-align: center;
+        }
+
+        .centered-form {
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body th:object="${post}">
+	<div class="centered-div">
+	<h1>Post by <span th:text="*{author.name}">John Doe</span></h1>
+	<p th:text="*{content}">This is a post.</p>
+	<p>Likes: <span th:text="${likeCount}">0</span></p>
+	
+	<form method="post" action="#" th:action="@{/forum/post/{id}/like(id = ${post.id})}">
+		<input type="hidden" th:name="likerName" th:value="${likerName}">
+		<input style="background-color: blue; color: white; border: none; padding: 10px;" type="submit" value="Like">
+	</form><br><br>
+	
+	<form method="post" class="centered-form" action="#" th:action="@{/forum/post/{id}/comment(id=${post.id})}">
+		<textarea name="commentContent" style="width: 300px; height: 60px; padding: 10px; border: 1px solid #ccc; font-family: Arial, sans-serif;" placeholder="Comment here" ></textarea><br><br>
+		<input style="background-color: blue; color: white; border: none; padding: 10px;" type="submit" value="Comment">
+	</form>
+	
+    <h2>Comments</h2>
+    <ul>
+        <li th:each="comment : ${comments}">
+            <p th:text="${comment.content}"></p>
+        </li>
+    </ul>
+
+</div>
+
+	
+	
+</body>
+</html>
