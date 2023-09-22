@@ -1,0 +1,19 @@
+<h1>Welcome to my forum</h1>
+<div>
+<form>
+    <input type="text" [(ngModel)] = "content" name="c" placeholder="Enter the content"><br><br>
+    <button (click) = "createPost()">Create</button><br><br>
+</form>
+
+<form>
+    <input tyep = "number" [(ngModel)] = "id" name = "id"><br><br>
+    <button (click) = "fetchPost()">Fetch</button><br><br> 
+</form>
+
+<h2>Post</h2>
+<div *ngIf = "post">
+{{post.postId}}<br><br>
+{{post.postContent}}
+</div>  
+
+</div>
